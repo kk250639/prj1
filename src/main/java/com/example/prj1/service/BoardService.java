@@ -66,4 +66,8 @@ public class BoardService {
 
         return dto;
     }
+
+    public void action() {
+
+    }
 }
