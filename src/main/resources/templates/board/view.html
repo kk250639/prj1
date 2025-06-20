@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead(|${board.id}번 게시물|)}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--/* navbar */-->
+<nav th:replace="~{layout/main::pageNavbar(_)}"></nav>
+
+<!--.container>.row.justify-content-center>.col.col-lg-6-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+
+            <h2 class="mb-3">
+                <span th:text="${board.id}"></span>
+                번
+                게시물
+            </h2>
+            <div class="mb-3">
+                <label class="form-label" for="inputTitle">제목</label>
+                <input class="form-control" type="text" id="inputTitle" th:value="${board.title}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="textareaContent">본문</label>
+                <textarea class="form-control" type="text"
+                          id="textareaContent"
+                          rows="10"
+                          th:text="${board.content}"
+                          readonly></textarea>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="inputWriter">작성자</label>
+                <input class="form-control" type="text" id="inputWriter" th:value="${board.writer}" readonly>
+            </div>
+            <div class="mb-3">
+                <label class="form-label" for="inputCreated">작성일시</label>
+                <input class="form-control" type="datetime-local" id="inputCreated" th:value="${board.createdAt}"
+                       readonly>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+
+</body>
+</html>

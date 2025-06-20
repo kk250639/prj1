@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead('글쓰기')}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<!--/* navbar */-->
+<nav th:replace="~{layout/main::pageNavbar('write')}"></nav>
+
+<!--.container>.row>.col-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+
+            <h2 class="mb-3">게시물 작성</h2>
+
+            <form class="mb-3" th:action="@{/board/write}" method="post">
+                <div class="mb-3">
+                    <label class="form-label" for="titleInput">제목</label>
+                    <input class="form-control" type="text" id="titleInput" name="title">
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="contentTextarea">본문</label>
+                    <textarea class="form-control" rows="10" id="contentTextarea" name="content"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label class="form-label" for="writerInput">작성자</label>
+                    <input class="form-control" type="text" id="writerInput" name="writer">
+                </div>
+                <div class="mb-3">
+                    <button class="btn btn-primary">저장</button>
+                </div>
+            </form>
+
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+
+</body>
+</html>
