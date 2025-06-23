@@ -13,6 +13,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import java.lang.reflect.Member;
 import java.util.Map;
 
+//회원가입
 @Controller
 @RequiredArgsConstructor
 @RequestMapping("member")
