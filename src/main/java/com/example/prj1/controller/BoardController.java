@@ -32,15 +32,17 @@ public class BoardController {
 
         boardService.add(data);
 
-        rttr.addFlashAttribute("alert", Map.of("code", "primary", "message", "새 게시물이 등록되었습니다."));
+        rttr.addFlashAttribute("alert",
+                Map.of("code", "primary", "message", "새 게시물이 등록되었습니다."));
 
         return "redirect:/board/list";
     }
 
     @GetMapping("list")
-    public String list(@RequestParam(defaultValue = "1")
-                       Integer page,
-                       Model model) {
+    public String list(
+            @RequestParam(defaultValue = "1")
+            Integer page,
+            Model model) {
 
         var result = boardService.list(page);
 
