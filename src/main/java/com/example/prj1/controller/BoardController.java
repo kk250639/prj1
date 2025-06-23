@@ -61,7 +61,7 @@ public class BoardController {
         // model에 넣고
         model.addAttribute("board", dto);
 
-        // view로 forward
+        // view로 forward 임시커밋
         return "board/view";
     }
 
