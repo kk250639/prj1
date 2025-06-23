@@ -70,4 +70,8 @@ public class BoardService {
     public void action() {
 
     }
+
+    public void remove(Integer id) {
+        boardRepository.deleteById(id);
+    }
 }

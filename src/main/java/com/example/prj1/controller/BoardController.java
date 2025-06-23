@@ -58,4 +58,11 @@ public class BoardController {
         // view로 forward
         return "board/view";
     }
+
+    @PostMapping("remove")
+    public String remove(Integer id) {
+        boardService.remove(id);
+
+        return "redirect:/board/list";
+    }
 }
