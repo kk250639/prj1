@@ -31,6 +31,44 @@
                 <input th:value="${member.createdAt}" id="inputCreated" type="datetime-local" class="form-control"
                        readonly>
             </div>
+            <div>
+                <button class="btn btn-outline-danger">삭제</button>
+                <button class="btn btn-outline-secodary">수정</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">
+                    탈퇴 확인
+                </h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                삭제 하시겠습니까?
+                <form th:action="@{/member/remove}" method="post">
+                    <input type="hidden" name="id" th:value="${member.id}">
+                    <div>
+                        <label for="inputPassword" class="form-label"></label>
+                        <input placeholder="기존 암호를 입력하세요."
+                               id="inputpassword"
+                               name="password"
+                               type="password" class="form-control">
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">
+                    취소
+                </button>
+                <button type="submit" form="removeForm" class="btn btn-danger">
+                    탈퇴
+                </button>
+            </div>
         </div>
     </div>
 </div>
