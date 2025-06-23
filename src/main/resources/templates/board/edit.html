@@ -7,39 +7,41 @@
 <body>
 <nav th:replace="~{layout/main::pageNavbar(_)}"></nav>
 
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3-->
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col col-ge-6">
+        <div class="col col-lg-6">
             <h2 class="mb-3">
                 <span th:text="${board.id}">
                     2342
                 </span>
-                번 계시물 수정
+                번 게시물 수정
             </h2>
             <form class="mb-3" th:action="@{/board/edit}" method="post">
                 <input type="hidden" name="id" th:value="${board.id}">
                 <div class="mb-3">
                     <label class="form-label" for="titleInput">제목</label>
-                    <input th:value="${board.title}" class="form-control" type="text" id="titleInput">
+                    <input th:value="${board.title}" name="title" class="form-control" type="text" id="titleInput">
                 </div>
                 <div class="mb-3">
                     <label class="form-label" for="contentTextarea">본문</label>
-                    <textarea th=text=${board.content}" name="content" id="contentTextarea" cols="30"
+                    <textarea th:text="${board.content}" class="form-control" name="content" id="contentTextarea"
                               rows="10"></textarea>
                 </div>
                 <div class="mb-3">
-                    <lable class="form-label" for="writerInput">작성자</lable>
-                    <input class="form-control" type="text" id="writerInput">
+                    <label class="form-label" for="writerInput">작성자</label>
+                    <input th:value="${board.writer}" name="writer" class="form-control" type="text" id="writerInput">
                 </div>
                 <div class="mb-3">
-
+                    <button class="btn btn-primary">저장</button>
                 </div>
-                <button class="btn btn-primary">저장</button>
+
             </form>
         </div>
     </div>
 </div>
 
-<th:block th:replac="~{layout/main::commonScript}"/>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
 </body>
 </html>

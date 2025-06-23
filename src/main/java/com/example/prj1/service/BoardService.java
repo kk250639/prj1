@@ -73,12 +73,13 @@ public class BoardService {
 
     public void update(BoardForm data) {
         // 조회
-        boardRepository.findById(data.getId()).get();
+        Board board = boardRepository.findById(data.getId()).get();
         // 수정
-        board.setTitle(data);
-        board.setContent(data);
-        board.set
+        board.setTitle(data.getTitle());
+        board.setContent(data.getContent());
+        board.setWriter(data.getWriter());
+
         // 저장
-        boardRepository.saveAndFlush();
+        boardRepository.save(board);
     }
 }
