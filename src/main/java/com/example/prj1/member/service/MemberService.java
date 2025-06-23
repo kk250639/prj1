@@ -60,4 +60,39 @@ public class MemberService {
         return dto;
 
     }
+
+    public boolean remove(MemberForm data) {
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            memberRepository.delete(member);
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    public boolean update(MemberForm data) {
+        // 조회
+        Member member = memberRepository.findById(data.getId()).get();
+
+        String dbPw = member.getPassword();
+        String formPw = data.getPassword();
+
+        if (dbPw.equals(formPw)) {
+            // 변경
+            member.setNickName(data.getNickName());
+            member.setInfo(data.getInfo());
+            // 저장
+            memberRepository.save(member);
+
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 }

@@ -24,6 +24,7 @@
             <div class="mb-3">
                 <label for="textareaInfo" class="form-label">자기소개</label>
                 <textarea th:text="${member.info}"
+                          rows="3"
                           id="textareaInfo" class="form-control" readonly></textarea>
             </div>
             <div class="mb-3">
@@ -31,14 +32,21 @@
                 <input th:value="${member.createdAt}" id="inputCreated" type="datetime-local" class="form-control"
                        readonly>
             </div>
+
             <div>
-                <button class="btn btn-outline-danger">삭제</button>
-                <button class="btn btn-outline-secodary">수정</button>
+                <button class="btn btn-outline-danger btn-sm"
+                        data-bs-toggle="modal"
+                        data-bs-target="#removeModal">회원 탈퇴
+                </button>
+                <a th:href="@{/member/edit(id=${member.id})}"
+                   class="btn btn-outline-secondary">수정
+                </a>
             </div>
         </div>
     </div>
 </div>
 
+<!-- Modal -->
 <div class="modal fade" id="removeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
@@ -49,13 +57,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                삭제 하시겠습니까?
-                <form th:action="@{/member/remove}" method="post">
+                <form id="removeForm" th:action="@{/member/remove}" method="post">
                     <input type="hidden" name="id" th:value="${member.id}">
                     <div>
-                        <label for="inputPassword" class="form-label"></label>
+                        <!--                        label.form-label+input.form-control-->
+                        <label for="inputPassword" class="form-label">암호</label>
                         <input placeholder="기존 암호를 입력하세요."
-                               id="inputpassword"
+                               id="inputPassword"
                                name="password"
                                type="password" class="form-control">
                     </div>

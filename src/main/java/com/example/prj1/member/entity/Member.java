@@ -12,10 +12,11 @@ import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "member")
-@Getter
 @Setter
+@Getter
 @ToString
 public class Member {
+
     @Id
     private String id;
     private String password;
