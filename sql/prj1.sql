@@ -25,7 +25,7 @@ CREATE TABLE member
 (
     id         VARCHAR(100)   NOT NULL,
     password   VARCHAR(255)   NOT NULL,
-    nick_name  VARCHAR(100)   NOT NULL,
+    nick_name  VARCHAR(100)   NOT NULL UNIQUE,
     info       VARCHAR(10000) NULL,
     created_at datetime       NOT NULL DEFAULT NOW(),
     CONSTRAINT pk_member PRIMARY KEY (id)
