@@ -70,4 +70,15 @@ public class BoardService {
     public void remove(Integer id) {
         boardRepository.deleteById(id);
     }
+
+    public void update(BoardForm data) {
+        // 조회
+        boardRepository.findById(data.getId()).get();
+        // 수정
+        board.setTitle(data);
+        board.setContent(data);
+        board.set
+        // 저장
+        boardRepository.saveAndFlush();
+    }
 }
