@@ -18,7 +18,7 @@ import java.util.Map;
 @RequiredArgsConstructor
 @RequestMapping("board")
 public class BoardController {
-
+    //연습
     private final BoardService boardService;
 
     @GetMapping("write")
