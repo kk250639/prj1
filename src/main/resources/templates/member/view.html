@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{layout/main::commonHead(${member.id})}">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<nav th:replace="~{layout/main::pageNavbar(_)}"></nav>
+
+<!--.container>.row.justify-content-center>.col.col-lg-6>h2.mb-3{회원 정보}-->
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col col-lg-6">
+            <h2 class="mb-3">회원 정보</h2>
+            <!--            div.mb-3*4>label.form-label+input.form-control[readonly]-->
+            <div class="mb-3">
+                <label for="inputId" class="form-label">아이디</label>
+                <input th:value="${member.id}" id="inputId" type="text" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="inputNickName" class="form-label">별명</label>
+                <input th:value="${member.nickName}" id="inputNickName" type="text" class="form-control" readonly>
+            </div>
+            <div class="mb-3">
+                <label for="textareaInfo" class="form-label">자기소개</label>
+                <textarea th:text="${member.info}"
+                          id="textareaInfo" class="form-control" readonly></textarea>
+            </div>
+            <div class="mb-3">
+                <label for="inputCreated" class="form-label">가입일시</label>
+                <input th:value="${member.createdAt}" id="inputCreated" type="datetime-local" class="form-control"
+                       readonly>
+            </div>
+        </div>
+    </div>
+</div>
+
+<th:block th:replace="~{layout/main::commonScript}"/>
+</body>
+</html>

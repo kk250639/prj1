@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.lang.reflect.Member;
 import java.util.Map;
 
 @Controller
@@ -24,15 +23,13 @@ public class MemberController {
 
     @GetMapping("signup")
     public String signupForm() {
-
-
         return "member/signup";
     }
 
     @PostMapping("signup")
     public String signup(MemberForm data, RedirectAttributes rttr) {
-        // service
         try {
+            // service
             memberService.add(data);
 
 
@@ -42,7 +39,7 @@ public class MemberController {
             return "redirect:/board/list";
         } catch (DuplicateKeyException e) {
             rttr.addFlashAttribute("alert",
-                    Map.of("code", "warining", "message", e.getMessage()));
+                    Map.of("code", "warning", "message", e.getMessage()));
 
             rttr.addFlashAttribute("member", data);
 
@@ -55,5 +52,12 @@ public class MemberController {
         model.addAttribute("memberList", memberService.list());
 
         return "member/list";
+    }
+
+    @GetMapping("view")
+    public String view(String id, Model model) {
+        model.addAttribute("member", memberService.get(id));
+
+        return "member/view";
     }
 }
