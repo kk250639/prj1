@@ -78,9 +78,9 @@ public class BoardService {
         return dto;
     }
 
-    public void remove(Integer id, MemberDto user) {
+    public boolean remove(Integer id, MemberDto user) {
         if (user != null) {
-            boolean db = boardRepository.findById(id)
+            Member db = boardRepository.findById(id)
                     .get()
                     .getWriter();
 
