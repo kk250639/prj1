@@ -3,6 +3,7 @@ package com.example.prj1.member.controller;
 import com.example.prj1.member.dto.MemberDto;
 import com.example.prj1.member.dto.MemberForm;
 import com.example.prj1.member.service.MemberService;
+import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Controller;
@@ -131,4 +132,44 @@ public class MemberController {
     }
 
 
+    @GetMapping("login")
+    public String loginForm() {
+
+        return "member/login";
+    }
+
+    @PostMapping("login")
+    public String loginProcess(String id, String password,
+                               HttpSession session,
+                               RedirectAttributes rttr) {
+
+        boolean result = memberService.login(id, password, session);
+
+        if (result) {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "success",
+                            "message", "로그인 되었습니다."));
+            // 로그인 성공
+            return "redirect:/board/list";
+        } else {
+            rttr.addFlashAttribute("alert",
+                    Map.of("code", "warning",
+                            "message", "아이디/패스워드가 일치하지 않습니다."));
+
+            // 로그인 실패
+            return "redirect:/member/login";
+        }
+
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session, RedirectAttributes rttr) {
+        session.invalidate();
+
+        rttr.addFlashAttribute("alert",
+                Map.of("code", "success",
+                        "message", "로그아웃 되었습니다."));
+
+        return "redirect:/board/list";
+    }
 }
