@@ -81,7 +81,8 @@ public class MemberController {
                          @SessionAttribute(value = "loggedInUser", required = false)
                          MemberDto user,
                          RedirectAttributes rttr) {
-        // TODO : 작성한 글이 있으면 삭제x
+        
+
         boolean result = memberService.remove(data, user);
 
         if (result) {
