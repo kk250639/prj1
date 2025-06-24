@@ -43,7 +43,7 @@
                        readonly>
             </div>
 
-            <div>
+            <div th:if="${session.loggedInUser != null && (session.loggedInUser.id == board.writer.id)}">
                 <button class="btn btn-outline-danger"
                         data-bs-toggle="modal"
                         data-bs-target="#removeModal">삭제
