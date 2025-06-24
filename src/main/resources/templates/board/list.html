@@ -52,7 +52,7 @@
                         th:each="pageNumber : ${#numbers.sequence(leftPageNumber, rightPageNumber)}"
                         th:classappend="${(currentPage == pageNumber) ? 'active' : ''}">
                         <a class="page-link"
-                           th:href="@{/board/list(page=${pageNumber})}"
+                           th:href="@{/board/list(page=${pageNumber},keyword=${param.keyword}})}"
                            th:text="${pageNumber}"></a>
                     </li>
                     <li class="page-item"
