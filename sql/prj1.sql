@@ -31,3 +31,24 @@ CREATE TABLE member
     CONSTRAINT pk_member PRIMARY KEY (id)
 );
 DROP TABLE member;
+
+# 회원만 글을 작성할 수 잇으므로
+# board, writer를 member.id로 수정
+# 외래키 제약 사항 추가
+
+# a
+# as
+
+UPDATE board
+SET writer = 'a'
+WHERE id % 2 = 1;
+
+UPDATE board
+SET writer = 'as'
+WHERE id % 2 = 0;
+
+# 외래키 제약 사항 추가
+ALTER TABLE board
+    ADD FOREIGN KEY (writer) REFERENCES member (id);
+ALTER TABLE board
+    MODIFY writer VARCHAR(100) NOT NULL;

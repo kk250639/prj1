@@ -5,6 +5,9 @@ import com.example.prj1.board.dto.BoardForm;
 import com.example.prj1.board.dto.BoardListInfo;
 import com.example.prj1.board.entity.Board;
 import com.example.prj1.board.repository.BoardRepository;
+import com.example.prj1.member.dto.MemberDto;
+import com.example.prj1.member.entity.Member;
+import com.example.prj1.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -21,12 +24,17 @@ import java.util.Map;
 public class BoardService {
 
     private final BoardRepository boardRepository;
+    private final MemberRepository memberRepository;
 
-    public void add(BoardForm formData) {
+    public void add(BoardForm formData, MemberDto user) {
+
         Board board = new Board();
         board.setTitle(formData.getTitle());
         board.setContent(formData.getContent());
-        board.setWriter(formData.getWriter());
+
+//        board.setWriter(user.getId());
+        Member member = memberRepository.findById(user.getId()).get();
+        board.setWriter(member);
 
         boardRepository.save(board);
     }
@@ -38,8 +46,6 @@ public class BoardService {
                 .findAllBy(PageRequest.of(page - 1, 10, Sort.by("id").descending()));
 
         List<BoardListInfo> boardList = boardPage.getContent();
-        boardPage.getTotalElements();
-        boardPage.getTotalPages();
 
         Integer rightPageNumber = ((page - 1) / 10 + 1) * 10;
         Integer leftPageNumber = rightPageNumber - 9;
@@ -61,7 +67,12 @@ public class BoardService {
         dto.setId(board.getId());
         dto.setTitle(board.getTitle());
         dto.setContent(board.getContent());
-        dto.setWriter(board.getWriter());
+
+        MemberDto memberDto = new MemberDto();
+        memberDto.setId(board.getWriter().getId());
+        memberDto.setNickName(board.getWriter().getNickName());
+
+        dto.setWriter(memberDto);
         dto.setCreatedAt(board.getCreatedAt());
 
         return dto;
@@ -77,7 +88,6 @@ public class BoardService {
         // 수정
         board.setTitle(data.getTitle());
         board.setContent(data.getContent());
-        board.setWriter(data.getWriter());
 
         // 저장
         boardRepository.save(board);
