@@ -78,8 +78,18 @@ public class BoardService {
         return dto;
     }
 
-    public void remove(Integer id) {
-        boardRepository.deleteById(id);
+    public void remove(Integer id, MemberDto user) {
+        if (user != null) {
+            boolean db = boardRepository.findById(id)
+                    .get()
+                    .getWriter();
+
+            if (db.getId().equals(user.getId())) {
+                boardRepository.deleteById(id);
+                return true;
+            }
+        }
+        return false;
     }
 
     public void update(BoardForm data) {
