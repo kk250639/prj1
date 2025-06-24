@@ -78,27 +78,41 @@ public class MemberService {
         return false;
     }
 
-    public boolean update(MemberForm data) {
-        // 조회
-        Member member = memberRepository.findById(data.getId()).get();
+    public boolean update(MemberForm data, MemberDto user, HttpSession session) {
 
-        String dbPw = member.getPassword();
-        String formPw = data.getPassword();
+        if (user != null) {
+            // 조회
+            Member member = memberRepository.findById(data.getId()).get();
+            if (member.getId().equals(user.getId())) {
+                String dbPw = member.getPassword();
+                String formPw = data.getPassword();
 
-        if (dbPw.equals(formPw)) {
-            // 변경
-            member.setNickName(data.getNickName());
-            member.setInfo(data.getInfo());
-            // 저장
-            memberRepository.save(member);
+                if (dbPw.equals(formPw)) {
+                    // 변경
+                    member.setNickName(data.getNickName());
+                    member.setInfo(data.getInfo());
+                    // 저장
+                    memberRepository.save(member);
 
-            return true;
-        } else {
-            return false;
+                    // dto 만들어서 session에 저장
+                    // memberDto를 session 에 넣기
+                    addUserToSession(session, member);
+                    return true;
+                }
+            }
         }
-
+        return false;
     }
 
+    private static void addUserToSession(HttpSession session, Member member) {
+        MemberDto dto = new MemberDto();
+        dto.setId(member.getId());
+        dto.setNickName(member.getNickName());
+        dto.setInfo(member.getInfo());
+        dto.setCreatedAt(member.getCreatedAt());
+
+        session.setAttribute("loggedInUser", dto);
+    }
 
     public boolean updatePassword(String id, String oldPassword, String newPassword) {
         Member db = memberRepository.findById(id).get();
@@ -124,13 +138,7 @@ public class MemberService {
             if (dbPassword.equals(password)) {
 
                 // memberDto를 session 에 넣기
-                MemberDto dto = new MemberDto();
-                dto.setId(db.get().getId());
-                dto.setNickName(db.get().getNickName());
-                dto.setInfo(db.get().getInfo());
-                dto.setCreatedAt(db.get().getCreatedAt());
-
-                session.setAttribute("loggedInUser", dto);
+                addUserToSession(session, db.get());
 
                 return true;
             }
