@@ -74,8 +74,11 @@ public class MemberController {
     }
 
     @PostMapping("remove")
-    public String remove(MemberForm data, RedirectAttributes rttr) {
-        boolean result = memberService.remove(data);
+    public String remove(MemberForm data,
+                         @SessionAttribute(value = "loggedInUser", required = false)
+                         MemberDto user,
+                         RedirectAttributes rttr) {
+        boolean result = memberService.remove(data, user);
 
         if (result) {
             rttr.addFlashAttribute("alert",
