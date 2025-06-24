@@ -97,6 +97,7 @@ public class MemberService {
 
     }
 
+    
     public boolean updatePassword(String id, String oldPassword, String newPassword) {
         Member db = memberRepository.findById(id).get();
 
