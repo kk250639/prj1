@@ -92,14 +92,20 @@ public class BoardService {
         return false;
     }
 
-    public void update(BoardForm data) {
+    public boolean update(BoardForm data, MemberDto user) {
         // 조회
-        Board board = boardRepository.findById(data.getId()).get();
-        // 수정
-        board.setTitle(data.getTitle());
-        board.setContent(data.getContent());
+        if (user != null) {
+            Board board = boardRepository.findById(data.getId()).get();
+            // 수정
+            if (board.getWriter().getId().equals(user.getId())) {
+                board.setTitle(data.getTitle());
+                board.setContent(data.getContent());
 
-        // 저장
-        boardRepository.save(board);
+                // 저장
+                boardRepository.save(board);
+                return true;
+            }
+        }
+        return false;
     }
 }
